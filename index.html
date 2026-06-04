@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GeoFS Launcher</title>
+    <link rel="stylesheet" href="https://unpkg.com/cesium/Build/Cesium/Widgets/widgets.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="geofs-ui-3dview" class="geofs-ui-3dview" aria-label="GeoFS 3D view"></div>
+    <div class="geofs-canvas-mouse-overlay" aria-hidden="true"></div>
+    <div class="geofs-apiResponse" aria-hidden="true"></div>
+
+    <aside class="launcher-panel" aria-labelledby="launcher-title">
+      <p class="eyebrow">GeoFS source launcher</p>
+      <h1 id="launcher-title">Run the archived GeoFS code</h1>
+      <p>
+        This page boots <code>GeoFS.js</code> directly instead of replacing it with a toy simulator. It supplies the
+        browser shell that the archived code expects: Cesium, jQuery, the <code>geofs-ui-3dview</code> element, and a
+        few compatibility shims.
+      </p>
+
+      <label for="ion-token">Cesium Ion token</label>
+      <input id="ion-token" class="launcher-input" type="password" autocomplete="off" placeholder="Paste your Cesium Ion access token" />
+
+      <label for="asset-origin">GeoFS asset/API origin</label>
+      <input id="asset-origin" class="launcher-input" type="url" value="https://www.geo-fs.com" />
+
+      <div class="button-row">
+        <button id="save-settings" type="button">Save settings</button>
+        <button id="start-geofs" type="button" class="primary">Start GeoFS</button>
+      </div>
+
+      <details>
+        <summary>What still has to come from GeoFS/assets?</summary>
+        <ul>
+          <li>Aircraft definitions from <code>/models/aircraft/load.php</code>.</li>
+          <li>Model, image, skybox, runway, instrument, and sound files.</li>
+          <li>Weather, geocoding, account, and multiplayer backend endpoints.</li>
+        </ul>
+      </details>
+
+      <pre id="boot-log" class="boot-log" aria-live="polite"></pre>
+    </aside>
+
+    <div class="geofs-startModal">
+      <button class="geofs-fly-button" type="button">Fly</button>
+    </div>
+
+    <div class="geofs-notification" role="status" aria-live="polite"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/cesium/Build/Cesium/Cesium.js"></script>
+    <script src="src/geofs-launcher.js"></script>
+    <script src="GeoFS.js"></script>
+  </body>
+</html>

@@ -1,0 +1,168 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  color: #f5fbff;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #020617;
+}
+
+.geofs-ui-3dview,
+.geofs-canvas-mouse-overlay {
+  position: fixed;
+  inset: 0;
+}
+
+.geofs-ui-3dview {
+  z-index: 0;
+}
+
+.geofs-canvas-mouse-overlay {
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.launcher-panel {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 40;
+  width: min(430px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: 22px;
+  border: 1px solid rgba(141, 196, 255, 0.28);
+  border-radius: 22px;
+  background: rgba(4, 12, 28, 0.88);
+  box-shadow: 0 22px 80px rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(14px);
+}
+
+.launcher-panel.is-collapsed {
+  pointer-events: none;
+  opacity: 0.16;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #93f56e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1;
+}
+
+p,
+li,
+summary {
+  color: #b8c8dc;
+  line-height: 1.55;
+}
+
+code {
+  padding: 0.1rem 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+label {
+  display: block;
+  margin: 16px 0 7px;
+  color: #e6f3ff;
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.launcher-input {
+  display: block;
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid rgba(141, 196, 255, 0.32);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font: inherit;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 18px 0;
+}
+
+button {
+  cursor: pointer;
+  padding: 12px 14px;
+  border: 1px solid rgba(141, 196, 255, 0.36);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+}
+
+button.primary {
+  border-color: rgba(147, 245, 110, 0.75);
+  background: linear-gradient(135deg, #32b768, #198cf0);
+}
+
+.boot-log {
+  min-height: 8rem;
+  margin: 16px 0 0;
+  padding: 12px;
+  overflow: auto;
+  border: 1px solid rgba(141, 196, 255, 0.22);
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  color: #9af56e;
+  white-space: pre-wrap;
+}
+
+.geofs-startModal,
+.geofs-apiResponse {
+  display: none;
+}
+
+.geofs-notification {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 60;
+  max-width: min(460px, calc(100vw - 40px));
+  padding: 14px 16px;
+  border: 1px solid rgba(141, 196, 255, 0.28);
+  border-radius: 14px;
+  background: rgba(4, 12, 28, 0.92);
+  color: #ffffff;
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.34);
+  transform: translateY(140%);
+  transition: transform 180ms ease;
+}
+
+.geofs-notification.is-visible {
+  transform: translateY(0);
+}
+
+@media (max-width: 620px) {
+  .launcher-panel {
+    top: 10px;
+    left: 10px;
+    width: calc(100vw - 20px);
+    max-height: calc(100vh - 20px);
+  }
+
+  .button-row {
+    grid-template-columns: 1fr;
+  }
+}
