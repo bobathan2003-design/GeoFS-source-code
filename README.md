@@ -1,8 +1,14 @@
-# GeoFS Playable Web Demo
+# GeoFS Source Launcher
 
-This repository contains GeoFS source code from the official 3.31 update plus a new self-contained playable browser demo.
+This repository contains GeoFS source code from the official 3.31 update and a browser launcher that attempts to run the archived `GeoFS.js` directly.
 
-> Note: the archived `GeoFS.js` file is very large and is not enough by itself to run the complete original GeoFS simulator. The full simulator expects missing production assets, Cesium configuration, UI markup, and backend services. The included `index.html`/`src/simple-flight.js` demo is a static-site-friendly playable flight experience that can be hosted immediately.
+The launcher is intentionally **not** a replacement simulator. It loads the archived source file and supplies the minimum browser shell that the file expects:
+
+- a full-screen `geofs-ui-3dview` container
+- Cesium from a CDN
+- jQuery from a CDN
+- small compatibility shims for GeoFS UI helpers
+- fields for a Cesium Ion token and GeoFS asset/API origin
 
 ## Run locally
 
@@ -18,30 +24,19 @@ Then open:
 http://localhost:8000
 ```
 
-## Controls
+Paste a Cesium Ion token into the launcher and click **Start GeoFS**.
 
-- `W` / `S`: increase/decrease throttle
-- `↑` / `↓`: pitch down/up
-- `←` / `→`: bank left/right
-- `Space`: level aircraft
-- `R`: reset flight
+## Hosting
 
-## Host it
+This is a static site, so the launcher can be hosted on GitHub Pages, Cloudflare Pages, Netlify, Vercel, or any ordinary static web host.
 
-This is now a static website, so you can host it on:
+## Important limitation
 
-- GitHub Pages
-- Cloudflare Pages
-- Netlify
-- Vercel
+`GeoFS.js` is not a complete standalone game bundle. The full original simulator still depends on production resources that are not present in this repository, including:
 
-For the simplest route, push the repository to GitHub, enable GitHub Pages for the current branch, and set the site root to `/`.
-
-## Making the original GeoFS code playable
-
-To run the complete original GeoFS experience instead of the lightweight demo, you would need to restore or replace the missing pieces referenced by `GeoFS.js`, including:
-
-- Cesium and a Cesium Ion token (`geofs.ionkey`)
-- the expected HTML/UI shell, including the `geofs-ui-3dview` viewer element
+- aircraft definitions from `/models/aircraft/load.php`
 - model, image, skybox, runway, instrument, and sound assets
-- backend endpoints for weather, accounts/API responses, geocoding, and multiplayer services
+- weather, geocoding, account, and multiplayer backend endpoints
+- a valid Cesium Ion token (`geofs.ionkey`)
+
+The launcher defaults the asset/API origin to `https://www.geo-fs.com` so the archived code can try to use the original service paths. If those endpoints block cross-origin requests, change, require authentication, or are unavailable, the full simulator will not finish loading until those services are mirrored or reimplemented.

@@ -3,47 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GeoFS Playable Web Demo</title>
+    <title>GeoFS Launcher</title>
+    <link rel="stylesheet" href="https://unpkg.com/cesium/Build/Cesium/Widgets/widgets.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <section class="hero-panel" aria-labelledby="page-title">
-        <p class="eyebrow">Browser flight demo</p>
-        <h1 id="page-title">GeoFS Playable Web Demo</h1>
-        <p>
-          This page adds a self-contained playable flight experience that can be hosted as a static website.
-          The archived <code>GeoFS.js</code> file remains in the repository, but the full original simulator needs
-          missing production assets, Cesium setup, and backend services before it can run as-is.
-        </p>
-      </section>
+    <div id="geofs-ui-3dview" class="geofs-ui-3dview" aria-label="GeoFS 3D view"></div>
+    <div class="geofs-canvas-mouse-overlay" aria-hidden="true"></div>
+    <div class="geofs-apiResponse" aria-hidden="true"></div>
 
-      <section class="sim-panel" aria-label="Playable flight simulator">
-        <canvas id="flight-canvas" width="1280" height="720" aria-label="Playable flight simulator canvas"></canvas>
-        <div class="hud" aria-live="polite">
-          <div><span>Speed</span><strong id="hud-speed">0 kt</strong></div>
-          <div><span>Altitude</span><strong id="hud-altitude">0 ft</strong></div>
-          <div><span>Heading</span><strong id="hud-heading">000°</strong></div>
-          <div><span>Throttle</span><strong id="hud-throttle">0%</strong></div>
-        </div>
-      </section>
+    <aside class="launcher-panel" aria-labelledby="launcher-title">
+      <p class="eyebrow">GeoFS source launcher</p>
+      <h1 id="launcher-title">Run the archived GeoFS code</h1>
+      <p>
+        This page boots <code>GeoFS.js</code> directly instead of replacing it with a toy simulator. It supplies the
+        browser shell that the archived code expects: Cesium, jQuery, the <code>geofs-ui-3dview</code> element, and a
+        few compatibility shims.
+      </p>
 
-      <section class="controls-panel" aria-labelledby="controls-title">
-        <h2 id="controls-title">Controls</h2>
+      <label for="ion-token">Cesium Ion token</label>
+      <input id="ion-token" class="launcher-input" type="password" autocomplete="off" placeholder="Paste your Cesium Ion access token" />
+
+      <label for="asset-origin">GeoFS asset/API origin</label>
+      <input id="asset-origin" class="launcher-input" type="url" value="https://www.geo-fs.com" />
+
+      <div class="button-row">
+        <button id="save-settings" type="button">Save settings</button>
+        <button id="start-geofs" type="button" class="primary">Start GeoFS</button>
+      </div>
+
+      <details>
+        <summary>What still has to come from GeoFS/assets?</summary>
         <ul>
-          <li><kbd>W</kbd> / <kbd>S</kbd>: increase/decrease throttle</li>
-          <li><kbd>↑</kbd> / <kbd>↓</kbd>: pitch down/up</li>
-          <li><kbd>←</kbd> / <kbd>→</kbd>: bank left/right</li>
-          <li><kbd>Space</kbd>: level aircraft</li>
-          <li><kbd>R</kbd>: reset flight</li>
+          <li>Aircraft definitions from <code>/models/aircraft/load.php</code>.</li>
+          <li>Model, image, skybox, runway, instrument, and sound files.</li>
+          <li>Weather, geocoding, account, and multiplayer backend endpoints.</li>
         </ul>
-        <p class="hosting-note">
-          To publish this website, push the repository to GitHub and enable GitHub Pages, or drag this folder into
-          Netlify/Cloudflare Pages/Vercel as a static site.
-        </p>
-      </section>
-    </main>
+      </details>
 
-    <script src="src/simple-flight.js"></script>
+      <pre id="boot-log" class="boot-log" aria-live="polite"></pre>
+    </aside>
+
+    <div class="geofs-startModal">
+      <button class="geofs-fly-button" type="button">Fly</button>
+    </div>
+
+    <div class="geofs-notification" role="status" aria-live="polite"></div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/cesium/Build/Cesium/Cesium.js"></script>
+    <script src="src/geofs-launcher.js"></script>
+    <script src="GeoFS.js"></script>
   </body>
 </html>
